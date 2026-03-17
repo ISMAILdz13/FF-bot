@@ -54,24 +54,28 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 import random
 from config import Config
-
-
-
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)  
-
 # Bot Logger
 class BotLogger:
     @staticmethod
     def info(msg):
-        print(f"[INFO] {msg}")
+        logging.info(f"[INFO] {msg}")
     
     @staticmethod
     def error(msg):
-        print(f"[ERROR] {msg}")
+        logging.error(f"[ERROR] {msg}")
     
     @staticmethod
     def success(msg):
-        print(f"[SUCCESS] ✓ {msg}")
+        logging.info(f"[SUCCESS] {msg}")
 
 logger = BotLogger()
 
