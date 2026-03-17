@@ -2151,53 +2151,39 @@ def get_player_info(player_id):
 #GET PLAYER BIO 
 def get_player_bio(uid):
     try:
-        url = f"https://mg24-gamer-super-info-api.vercel.app/get?uid={uid}"
-        res = requests.get(url)
+        url = f"https://like2.vercel.app/player-info?uid={uid}&server=BD&key=mg24"
+        res = requests.get(url, timeout=10)
         if res.status_code == 200:
             data = res.json()
-            # Bio is inside socialInfo -> signature
-            bio = data.get('socialinfo', {}).get('signature', 'No Bio Found')
-            if bio:
-                return bio
-            else:
-                return "No bio available"
+            bio = data.get('bio', 'No Bio Found')
+            return bio if bio else "No bio available"
         else:
-            return f"Failed to fetch bio. Status code: {res.status_code}"
+            return f"Failed to fetch bio. Status: {res.status_code}"
     except Exception as e:
-        return f"Error occurred: {e}"
+        return f"Error: {e}"
 #GET PLAYER INFO 
 def get_player_basic(uid):
     try:
-        url = f"https://mg24-gamer-super-info-api.vercel.app/get?uid={uid}"
-        res = requests.get(url)
+        url = f"https://like2.vercel.app/player-info?uid={uid}&server=BD&key=mg24"
+        res = requests.get(url, timeout=10)
         if res.status_code == 200:
             data = res.json()
-            # basic is inside socialInfo -> signature
-            basic = data.get('AccountInfo', {}).get('AccountName', 'Unknown')
-            level = data.get('AccountInfo', {}).get('AccountLevel', None)
-            like = data.get('AccountInfo', {}).get('AccountLikes', None)
-            region = data.get('AccountInfo', {}).get('AccountRegion', None)
-            version = data.get('AccountInfo', {}).get('ReleaseVersion', None)
-            guild_name = data.get('GuildInfo', {}).get('GuildName', None)
-            bp_badge = data.get('AccountInfo', {}).get('AccountBPBadges', None)
-            if basic:
-                return f"""
+            name = data.get('nickname', 'Unknown')
+            level = data.get('level', 'N/A')
+            likes = data.get('likes', 'N/A')
+            region = data.get('region', 'N/A')
+            return f"""
 [C][B][FFFF00]━━━━━━━━━━━━
-[C][B][FFFFFF]Name: [66FF00]{basic}
-[C][B][FFFFFF]level: [66FF00]{level}
-[C][B][FFFFFF]like: [66FF00]{like}
-[C][B][FFFFFF]region: [66FF00]{region}
-[C][B][FFFFFF]last login version: [66FF00]{version}
-[C][B][FFFFFF]Booyah Pass Badge: [66FF00]{bp_badge}
-[C][B][FFFFFF]guild name: [66FF00]{guild_name}
+[C][B][FFFFFF]Name: [66FF00]{name}
+[C][B][FFFFFF]Level: [66FF00]{level}
+[C][B][FFFFFF]Likes: [66FF00]{likes}
+[C][B][FFFFFF]Region: [66FF00]{region}
 [C][B][FFFF00]━━━━━━━━━━━━
 """
-            else:
-                return "No basic available"
         else:
-            return f"Failed to fetch basic. Status code: {res.status_code}"
+            return f"Failed to fetch info. Status: {res.status_code}"
     except Exception as e:
-        return f"Error occurred: {e}"
+        return f"Error: {e}"
 #GET ADD FRIEND
 def get_player_add(uid):
     try:
@@ -2980,7 +2966,7 @@ def get_player_remove(uid):
 #GET PLAYER BAN STATUS
 def get_player_ban_status(uid):
     try:
-        url = f"http://amin-team-api.vercel.app/check_banned?player_id={uid}"
+        url = f"https://amin-team-api.vercel.app/check_banned?player_id={uid}"
         res = requests.get(url)
         if res.status_code == 200:
             data = res.json()
