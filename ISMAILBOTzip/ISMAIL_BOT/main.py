@@ -4135,7 +4135,7 @@ async def TcPChaT(ip, port, AutHToKen, key, iv, LoGinDaTaUncRypTinG, ready_event
                         inPuTMsG = response.Data.msg.lower()
                         
                         # Debug print to see what we're receiving
-                        print(f"Received message: {inPuTMsG} from UID: {uid} in chat type: {XX}")
+                        logging.info(f"Received message: {inPuTMsG} from UID: {uid} in chat type: {XX}")
                         
                     except:
                         response = None
