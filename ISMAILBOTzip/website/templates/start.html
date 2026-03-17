@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Join Waitlist - Ismail Bot{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🎮 Free Fire Waitlist</h1>
+    <p>Join our exclusive bot testing program</p>
+</div>
+
+<div class="card">
+    <div class="card-title">📝 Your Free Fire ID</div>
+    
+    {% if error_msg %}
+        <div class="alert alert-error">
+            {{ error_msg }}
+        </div>
+    {% endif %}
+    
+    {% if status_msg %}
+        <div class="alert alert-info">
+            {{ status_msg }}
+        </div>
+    {% endif %}
+    
+    <form method="POST">
+        <div>
+            <label for="player_id" style="color: #888; font-size: 13px;">Enter your Free Fire Player ID (5+ digits)</label>
+            <input type="text" 
+                   id="player_id"
+                   name="player_id" 
+                   placeholder="1234567890" 
+                   required
+                   minlength="5"
+                   pattern="[0-9]+">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Check Status / Join ✓</button>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-title">ℹ️ What is this?</div>
+    <p>This is an exclusive waitlist for our Free Fire bot. Once accepted, the bot will appear as a friend in your Free Fire game where you can interact with it using various commands.</p>
+    <p style="margin-top: 10px; color: #888; font-size: 13px;">After acceptance, go to your friend list and accept the bot request.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - Ismail Bot{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📊 Waitlist Statistics</h1>
+    <p>Overview of all applications</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">📦 Total Applications</div>
+        <div class="stat-number">{{ total }}</div>
+    </div>
+    <div class="stat-card" style="border-left-color: #ffc107;">
+        <div class="stat-label">⏳ Pending</div>
+        <div class="stat-number" style="color: #ffc107;">{{ stats.get('pending', 0) }}</div>
+    </div>
+    <div class="stat-card" style="border-left-color: #28a745;">
+        <div class="stat-label">✅ Accepted</div>
+        <div class="stat-number" style="color: #28a745;">{{ stats.get('accepted', 0) }}</div>
+    </div>
+    <div class="stat-card" style="border-left-color: #dc3545;">
+        <div class="stat-label">❌ Rejected</div>
+        <div class="stat-number" style="color: #dc3545;">{{ stats.get('rejected', 0) }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">📈 Quick Actions</div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="{{ url_for('dev_area', status='pending') }}" class="btn btn-primary">Review Pending ({{ stats.get('pending', 0) }})</a>
+        <a href="{{ url_for('dev_area', status='all') }}" class="btn btn-primary">View All Entries</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">ℹ️ About</div>
+    <p>This dashboard shows a real-time overview of all waitlist applications. Use the numbers above to track progress and manage the approval process efficiently.</p>
+</div>
+{% endblock %}

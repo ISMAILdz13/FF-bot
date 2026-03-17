@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ismail Bot - Waitlist{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+            padding: 30px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            border-right: 2px solid #00bfff;
+        }
+        
+        .sidebar-logo {
+            padding: 0 20px 30px;
+            text-align: center;
+            border-bottom: 2px solid #00bfff;
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-logo h1 {
+            color: #00bfff;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+        }
+        
+        .sidebar-logo p {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0 15px;
+        }
+        
+        .nav-item {
+            padding: 12px 15px;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .nav-item:hover {
+            background: rgba(0, 191, 255, 0.1);
+            color: #00bfff;
+            transform: translateX(5px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, #00bfff, #0088cc);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .sidebar-section {
+            margin-top: 30px;
+            padding: 0 15px;
+        }
+        
+        .sidebar-section-title {
+            font-size: 12px;
+            color: #00bfff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding: 0 5px;
+            letter-spacing: 1px;
+        }
+        
+        .logout-btn {
+            margin-top: 30px !important;
+            background: linear-gradient(90deg, #ff6b6b, #ff5252) !important;
+            border: none;
+            color: white !important;
+            padding: 12px 20px !important;
+            font-weight: 600;
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #ff5252, #ff3838) !important;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .page-header {
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 36px;
+            color: #00bfff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+        }
+        
+        .page-header p {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        /* Cards and Containers */
+        .card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+            border: 1px solid rgba(0, 191, 255, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            color: #00bfff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00bfff, #0088cc);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 191, 255, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(90deg, #dc3545, #ff6b6b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(0, 191, 255, 0.1);
+            color: #888;
+            border: 1px solid rgba(0, 191, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 191, 255, 0.2);
+            color: #00bfff;
+        }
+        
+        /* Forms */
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #00bfff;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Messages */
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+        
+        .alert-error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #ff6b6b;
+        }
+        
+        .alert-info {
+            background: rgba(0, 191, 255, 0.1);
+            border: 1px solid #00bfff;
+            color: #00bfff;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+            border: 1px solid rgba(0, 191, 255, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border-left: 4px solid #00bfff;
+        }
+        
+        .stat-number {
+            font-size: 40px;
+            font-weight: bold;
+            color: #00bfff;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #888;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(0, 191, 255, 0.05);
+            color: #00bfff;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        tr:hover {
+            background: rgba(0, 191, 255, 0.03);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 20px 0;
+            }
+            
+            .sidebar-logo h1 {
+                font-size: 20px;
+            }
+            
+            .sidebar-logo p {
+                display: none;
+            }
+            
+            .nav-item span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #00bfff;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0088cc;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <h1>⚡ ISMAIL</h1>
+                <p>Free Fire Bot</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                {% if session.get('main_access') %}
+                    <a href="{{ url_for('start') }}" class="nav-item {% if request.endpoint == 'start' %}active{% endif %}">📝 Join Waitlist</a>
+                {% endif %}
+                
+                {% if session.get('dev_access') %}
+                    <a href="{{ url_for('dev_area') }}" class="nav-item {% if request.endpoint == 'dev_area' %}active{% endif %}">👥 Manage Players</a>
+                    <a href="{{ url_for('dev_stats') }}" class="nav-item {% if request.endpoint == 'dev_stats' %}active{% endif %}">📊 Statistics</a>
+                {% endif %}
+                
+                {% if not session.get('main_access') and not session.get('dev_access') %}
+                    <a href="{{ url_for('index') }}" class="nav-item active">🔐 Login</a>
+                {% endif %}
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">⚙️ Account</div>
+                <a href="{{ url_for('logout') }}" class="nav-item logout-btn">🚪 Logout</a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+requests
+httpx
+google
+protobuf
+pycryptodome
+psutil
+PyJWT
+urllib3
+protobuf-decoder
+pytz
+aiohttp
+cfonts
+flask
+python-dotenv
+gunicorn
+psycopg2-binary

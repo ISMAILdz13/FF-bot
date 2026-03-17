@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Ismail Bot{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin-left: -280px;
+    }
+    
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95));
+        border: 2px solid #00bfff;
+        border-radius: 15px;
+        padding: 50px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 191, 255, 0.2);
+    }
+    
+    .login-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+    
+    .login-card h2 {
+        color: #00bfff;
+        font-size: 28px;
+        margin-bottom: 10px;
+        text-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+    }
+    
+    .login-card p {
+        color: #888;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group input {
+        width: 100%;
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #00bfff, #0088cc);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 191, 255, 0.3);
+    }
+    
+    .login-btn:active {
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <h2>{{ 'Dev Access' if type == 'dev' else 'Welcome' }}</h2>
+        <p>{{ 'Administrator Portal' if type == 'dev' else 'Join our waitlist' }}</p>
+        
+        {% if error %}
+            <div class="alert alert-error">
+                ❌ Invalid code. Please try again.
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <input type="password" name="code" placeholder="Enter code" required autocomplete="off">
+            </div>
+            <button type="submit" class="login-btn">Enter →</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

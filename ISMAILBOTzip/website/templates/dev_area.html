@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Players - Ismail Bot{% endblock %}
+
+{% block extra_css %}
+<style>
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+    
+    .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .badge-pending {
+        background: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+    }
+    
+    .badge-accepted {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+        border: 1px solid #28a745;
+    }
+    
+    .badge-rejected {
+        background: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>👥 Player Management</h1>
+    <p>Review and manage waitlist applications</p>
+</div>
+
+<div class="card">
+    <div class="card-title">🔍 Filter Results</div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="?status=pending" class="btn {% if current_filter == 'pending' %}btn-primary{% else %}btn-secondary{% endif %}">⏳ Pending ({{ stats.pending }})</a>
+        <a href="?status=accepted" class="btn {% if current_filter == 'accepted' %}btn-primary{% else %}btn-secondary{% endif %}">✅ Accepted ({{ stats.accepted }})</a>
+        <a href="?status=rejected" class="btn {% if current_filter == 'rejected' %}btn-primary{% else %}btn-secondary{% endif %}">❌ Rejected ({{ stats.rejected }})</a>
+        <a href="?status=all" class="btn {% if current_filter == 'all' %}btn-primary{% else %}btn-secondary{% endif %}">📋 All ({{ stats.total }})</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">📊 Applications</div>
+    
+    {% if entries %}
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Player ID</th>
+                        <th>Status</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>#{{ entry[0] }}</td>
+                        <td style="font-family: monospace; color: #00bfff;">{{ entry[1] }}</td>
+                        <td>
+                            {% if entry[2] == 'accepted' %}
+                                <span class="badge badge-accepted">✓ Accepted</span>
+                            {% elif entry[2] == 'pending' %}
+                                <span class="badge badge-pending">⏳ Pending</span>
+                            {% else %}
+                                <span class="badge badge-rejected">✗ Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td style="color: #888; font-size: 13px;">{{ entry[3].strftime('%Y-%m-%d %H:%M') if entry[3] else 'N/A' }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                {% if entry[2] != 'accepted' %}
+                                    <a href="{{ url_for('dev_action', entry_id=entry[0], action='accepted') }}" class="btn btn-success">Accept</a>
+                                {% endif %}
+                                {% if entry[2] != 'rejected' %}
+                                    <a href="{{ url_for('dev_action', entry_id=entry[0], action='rejected') }}" class="btn btn-danger">Reject</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p style="color: #888; text-align: center; padding: 40px;">No entries found in this category.</p>
+    {% endif %}
+</div>
+{% endblock %}
