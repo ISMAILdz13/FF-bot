@@ -354,6 +354,6 @@ A: Tokens are automatically refreshed every 5 hours by the fetch_tokens() backgr
 Q: What if I see "SSL certificate verification failed"?
 A: This is expected for development. In production, either use verified certificates or run behind a proxy.
 
-Last Updated: March 2025
+Last Updated: March 2026
 Version: 2.0.0
 Status: ✅ Production-Ready (with proper configuration)
