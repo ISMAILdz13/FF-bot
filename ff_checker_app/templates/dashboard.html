@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block title %}Account Dashboard - FF Checker{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <h1 class="mb-2" style="background: linear-gradient(90deg, #00d9ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">
+                <i class="bi bi-speedometer2"></i> Account Dashboard
+            </h1>
+            <p class="text-muted mb-0">Complete Free Fire account information and statistics</p>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center py-5">
+        <div class="spinner-border" style="color: #00d9ff; width: 60px; height: 60px;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3" style="color: #7c3aed;">Fetching account information...</p>
+    </div>
+
+    <!-- Account Data (shown after loading) -->
+    <div id="accountContent" style="display: none;">
+        <!-- Profile Card -->
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="card neon-card" style="border: 2px solid #00d9ff; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h4 id="nickname" style="color: #00d9ff; margin-bottom: 5px;">Loading...</h4>
+                                <p id="levelDisplay" class="text-muted mb-0">Level: <span id="level">0</span></p>
+                            </div>
+                            <span id="statusBadge" class="badge" style="font-size: 0.9rem; padding: 8px 12px;">
+                                <i class="bi bi-circle-fill"></i> Loading
+                            </span>
+                        </div>
+
+                        <!-- Level Progress Bar -->
+                        <div class="mb-4">
+                            <label class="form-label small" style="color: #7c3aed;">Experience Progress</label>
+                            <div class="progress" style="height: 12px; border-radius: 10px; background: rgba(124, 58, 237, 0.2);">
+                                <div id="levelBar" class="progress-bar" style="background: linear-gradient(90deg, #00d9ff, #06b6d4); width: 0%; border-radius: 10px;"></div>
+                            </div>
+                            <small id="xpDisplay" class="text-muted mt-2" style="display: block;">0 / 0 XP</small>
+                        </div>
+
+                        <!-- Basic Info -->
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">UID</small>
+                                <strong id="uidDisplay" style="color: #00d9ff;">-</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Region</small>
+                                <strong id="regionDisplay" style="color: #7c3aed;">-</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Total Matches</small>
+                                <strong id="matchesDisplay" style="color: #06b6d4;">0</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Total Wins</small>
+                                <strong id="winsDisplay" style="color: #10b981;">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rank Card -->
+            <div class="col-lg-6">
+                <div class="card neon-card" style="border: 2px solid #7c3aed; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));">
+                    <div class="card-body p-4">
+                        <h5 style="color: #7c3aed; margin-bottom: 20px;">
+                            <i class="bi bi-award"></i> Ranked Information
+                        </h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div style="text-align: center; padding: 15px; background: rgba(0, 217, 255, 0.1); border-radius: 10px;">
+                                    <p class="text-muted small mb-2">Battle Royale Rank</p>
+                                    <h3 id="brRank" style="color: #00d9ff; margin-bottom: 0;">-</h3>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="text-align: center; padding: 15px; background: rgba(124, 58, 237, 0.1); border-radius: 10px;">
+                                    <p class="text-muted small mb-2">Clash Squad Rank</p>
+                                    <h3 id="csRank" style="color: #7c3aed; margin-bottom: 0;">-</h3>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div style="padding: 15px; background: rgba(6, 182, 212, 0.1); border-radius: 10px;">
+                                    <p class="text-muted small mb-2">Rank Points</p>
+                                    <h4 id="rankPoints" style="color: #06b6d4; margin-bottom: 0;">
+                                        <i class="bi bi-star-fill"></i> -
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p class="text-muted small mb-2">Current Season</p>
+                                <p id="seasonDisplay" style="color: #7c3aed; margin-bottom: 0;">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clan Card -->
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="card neon-card" style="border: 2px solid #06b6d4; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));">
+                    <div class="card-body p-4">
+                        <h5 style="color: #06b6d4; margin-bottom: 20px;">
+                            <i class="bi bi-people"></i> Clan Information
+                        </h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-1">Clan Name</small>
+                                <strong id="clanName" style="color: #00d9ff; font-size: 1.1rem;">No Clan</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Clan ID</small>
+                                <strong id="clanId" style="color: #7c3aed;">-</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Clan Level</small>
+                                <strong id="clanLevel" style="color: #06b6d4;">0</strong>
+                            </div>
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-1">Role</small>
+                                <span id="clanRole" class="badge" style="background: #7c3aed; color: white; padding: 8px 12px; font-size: 0.9rem;">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Card -->
+            <div class="col-lg-6">
+                <div class="card neon-card" style="border: 2px solid #10b981; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));">
+                    <div class="card-body p-4">
+                        <h5 style="color: #10b981; margin-bottom: 20px;">
+                            <i class="bi bi-graph-up"></i> Battle Statistics
+                        </h5>
+                        
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-2">Win Rate</small>
+                                <h3 id="winRate" style="color: #10b981; margin-bottom: 5px;">0%</h3>
+                                <small class="text-muted" id="winRateSub">0 / 0 Wins</small>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-2">K/D Ratio</small>
+                                <h3 id="kdRatio" style="color: #f59e0b; margin-bottom: 0;">0.00</h3>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Headshots</small>
+                                <strong id="headshots" style="color: #ef4444;">0</strong>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">Last Login</small>
+                                <small id="lastLogin" style="color: #7c3aed;">-</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Status -->
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <div id="accountStatusCard" class="card neon-card" style="border: 2px solid #10b981; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.05));">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 style="color: #10b981; margin-bottom: 5px;">
+                                    <i class="bi bi-shield-check"></i> Account Status
+                                </h5>
+                                <p id="accountStatusText" class="text-muted mb-0">Active - No restrictions</p>
+                            </div>
+                            <div>
+                                <i class="bi bi-check-circle" style="font-size: 3rem; color: #10b981;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ban Information (shown if banned) -->
+        <div id="banSection" style="display: none; margin-bottom: 30px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-danger" style="border: 2px solid #ef4444; background: rgba(239, 68, 68, 0.1);" role="alert">
+                        <h4 style="color: #ef4444;" class="alert-heading">
+                            <i class="bi bi-exclamation-triangle"></i> Account Banned
+                        </h4>
+                        <hr>
+                        <p><strong>Ban Reason:</strong> <span id="banReason">Not specified</span></p>
+                        <p><strong>Ban Duration:</strong> <span id="banDuration">Unknown</span></p>
+                        <p id="unbanTime" style="display: none;"><strong>Unban Time:</strong> <span id="unbanTimeValue">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" style="display: none;">
+        <div class="alert alert-danger" style="border: 2px solid #ef4444; background: rgba(239, 68, 68, 0.1);" role="alert">
+            <h4 style="color: #ef4444;" class="alert-heading">
+                <i class="bi bi-exclamation-circle"></i> Error
+            </h4>
+            <p id="errorMessage" class="mb-0"></p>
+            <div class="mt-3">
+                <a href="/" class="btn btn-outline-danger">
+                    <i class="bi bi-arrow-left"></i> Back to Upload
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Fetch account data when dashboard loads
+const guestUid = "{{ guest_uid }}";
+
+if (!guestUid) {
+    // Redirect to home if no UID in session
+    window.location.href = '/';
+} else {
+    fetchAccountData();
+}
+
+function fetchAccountData() {
+    fetch('/api/lookup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ guest_uid: guestUid })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('loadingState').style.display = 'none';
+        
+        if (data.success) {
+            displayAccountData(data.account_data);
+            document.getElementById('accountContent').style.display = 'block';
+        } else {
+            showError(data.error || 'Failed to retrieve account data');
+            if (data.account_data && data.account_data.status === 'banned') {
+                displayBanInfo(data.account_data);
+            }
+        }
+    })
+    .catch(error => {
+        document.getElementById('loadingState').style.display = 'none';
+        showError('Error: ' + error.message);
+    });
+}
+
+function displayAccountData(data) {
+    // Profile
+    document.getElementById('nickname').textContent = data.nickname || 'Unknown';
+    document.getElementById('level').textContent = data.level || 0;
+    document.getElementById('uidDisplay').textContent = data.uid || '-';
+    document.getElementById('regionDisplay').textContent = data.region || 'GLOBAL';
+    document.getElementById('matchesDisplay').textContent = data.total_matches || 0;
+    document.getElementById('winsDisplay').textContent = data.total_wins || 0;
+
+    // Level progress
+    const levelProgress = Math.min((data.level || 0) / 100 * 100, 100);
+    document.getElementById('levelBar').style.width = levelProgress + '%';
+    document.getElementById('xpDisplay').textContent = `${data.experience || 0} XP`;
+
+    // Rank
+    document.getElementById('brRank').textContent = data.ranked?.br_rank || '-';
+    document.getElementById('csRank').textContent = data.ranked?.cs_rank || '-';
+    document.getElementById('rankPoints').textContent = (data.ranked?.rank_points || 0).toLocaleString();
+    document.getElementById('seasonDisplay').textContent = data.ranked?.current_season || 'Unknown';
+
+    // Clan
+    document.getElementById('clanName').textContent = data.clan?.name || 'No Clan';
+    document.getElementById('clanId').textContent = data.clan?.id || '-';
+    document.getElementById('clanLevel').textContent = data.clan?.level || 0;
+    document.getElementById('clanRole').textContent = data.clan?.role || '-';
+
+    // Statistics
+    document.getElementById('winRate').textContent = (data.win_rate || 0) + '%';
+    document.getElementById('winRateSub').textContent = `${data.total_wins || 0} / ${data.total_matches || 0} Wins`;
+    document.getElementById('kdRatio').textContent = (data.kill_death_ratio || 0).toFixed(2);
+    document.getElementById('headshots').textContent = data.headshots || 0;
+    document.getElementById('lastLogin').textContent = data.last_login_display || '-';
+
+    // Status
+    updateAccountStatus(data.status);
+}
+
+function updateAccountStatus(status) {
+    if (!status) return;
+
+    let statusColor, statusIcon, statusText;
+
+    if (status.is_banned) {
+        statusColor = 'danger';
+        statusIcon = 'exclamation-triangle';
+        statusText = 'Banned';
+        document.getElementById('accountStatusCard').style.borderColor = '#ef4444';
+        document.getElementById('accountStatusCard').style.background = 'linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.05))';
+        
+        // Show ban info
+        document.getElementById('banSection').style.display = 'block';
+        document.getElementById('banReason').textContent = status.ban_reason || 'Not specified';
+        document.getElementById('banDuration').textContent = status.ban_duration || 'Unknown';
+    } else if (status.is_suspended) {
+        statusColor = 'warning';
+        statusIcon = 'pause-circle';
+        statusText = 'Suspended';
+    } else if (status.is_active) {
+        statusColor = 'success';
+        statusIcon = 'check-circle';
+        statusText = 'Active';
+    } else {
+        statusColor = 'secondary';
+        statusIcon = 'question-circle';
+        statusText = 'Unknown';
+    }
+
+    document.getElementById('statusBadge').innerHTML = `<i class="bi bi-${statusIcon}"></i> ${statusText}`;
+    document.getElementById('statusBadge').style.background = getColorCode(statusColor);
+    document.getElementById('accountStatusText').textContent = `${statusText} - ${getStatusMessage(status)}`;
+}
+
+function displayBanInfo(data) {
+    if (data.ban_info) {
+        document.getElementById('banSection').style.display = 'block';
+        document.getElementById('banReason').textContent = data.ban_info.reason || 'Not specified';
+        document.getElementById('banDuration').textContent = data.ban_info.duration || 'Unknown';
+    }
+}
+
+function showError(message) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('accountContent').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    document.getElementById('errorMessage').textContent = message;
+}
+
+function getColorCode(status) {
+    const colors = {
+        'success': '#10b981',
+        'danger': '#ef4444',
+        'warning': '#f59e0b',
+        'info': '#3b82f6',
+        'secondary': '#6b7280'
+    };
+    return colors[status] || colors['secondary'];
+}
+
+function getStatusMessage(status) {
+    if (status.is_banned) return 'No restrictions can be lifted';
+    if (status.is_suspended) return 'Temporary suspension';
+    if (status.is_active) return 'No restrictions';
+    return 'Unknown status';
+}
+</script>
+{% endblock %}
