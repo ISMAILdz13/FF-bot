@@ -1,4 +1,4 @@
-# 🎮 ISMAIL-BOT™ - Free Fire Game Automation Bot
+# Free Fire Game Automation Bot
 
 A sophisticated **Free Fire game bot** with an integrated **Flask web dashboard** for squad management, player waitlist handling, and administrative controls.
 
