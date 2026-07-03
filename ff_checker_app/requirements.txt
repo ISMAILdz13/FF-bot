@@ -1,0 +1,49 @@
+# ==================== Web Framework ====================
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+
+# ==================== Environment & Configuration ====================
+python-dotenv==1.0.0
+
+# ==================== HTTP & API ====================
+requests==2.31.0
+urllib3==2.0.5
+certifi==2023.7.22
+
+# ==================== JSON & Data Processing ====================
+orjson==3.9.10
+
+# ==================== Security & Cryptography ====================
+cryptography==41.0.3
+PyJWT==2.8.0
+
+# ==================== Validation & Sanitization ====================
+marchmallow==3.20.1
+email-validator==2.0.0
+
+# ==================== Logging & Monitoring ====================
+python-json-logger==2.0.7
+
+# ==================== Database (Optional for future) ====================
+# SQLAlchemy==2.0.21
+# psycopg2-binary==2.9.7
+
+# ==================== Testing ====================
+pytest==7.4.2
+pytest-cov==4.1.0
+pytest-flask==1.2.0
+
+# ==================== Code Quality ====================
+black==23.9.1
+flake8==6.1.0
+isort==5.12.0
+mypy==1.5.1
+pylint==3.0.1
+
+# ==================== Performance ====================
+gunicorn==21.2.0
+
+# ==================== Development ====================
+ipython==8.15.0
+watchdog==3.0.0
