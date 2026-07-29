@@ -437,7 +437,7 @@ This project is provided as-is for personal and educational use only. You may mo
 ## 👤 Credits
 
 - **Developer**: ISMAILdz13 (@ISMAILdz13)
-- **Repository**: [github.com/ISMAILdz13/ff-game-bot](https://github.com/ISMAILdz13/ff-game-bot)
+- **Repository**: [github.com/ISMAILdz13/FreeFireGameBot](https://github.com/ISMAILdz13/FreeFireGameBot)
 
 ---
 

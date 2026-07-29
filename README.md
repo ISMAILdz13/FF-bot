@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
 <img src="https://img.shields.io/badge/Version-2.0.0-orange?style=for-the-badge" alt="Version"/>
 <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
-<img src="https://img.shields.io/github/stars/ISMAILdz13/ff-game-bot?style=for-the-badge" alt="Stars"/>
+<img src="https://img.shields.io/github/stars/ISMAILdz13/FreeFireGameBot?style=for-the-badge" alt="Stars"/>
 
 <!-- Animated Status -->
 ![](assets/status-badge.svg)
@@ -100,7 +100,7 @@
 
 ```bash
 # Clone
-git clone https://github.com/ISMAILdz13/ff-game-bot.git
+git clone https://github.com/ISMAILdz13/FreeFireGameBot.git
 cd ff-game-bot
 
 # Install Python dependencies
@@ -274,7 +274,7 @@ ff-game-bot/
 ## 👤 Credits
 
 - **Developer**: ISMAILdz13 (@ISMAILdz13)
-- **Repository**: [github.com/ISMAILdz13/ff-game-bot](https://github.com/ISMAILdz13/ff-game-bot)
+- **Repository**: [github.com/ISMAILdz13/FreeFireGameBot](https://github.com/ISMAILdz13/FreeFireGameBot)
 
 ---
 
