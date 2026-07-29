@@ -1,6 +1,20 @@
 [project]
-name = "repl-nix-workspace"
-version = "0.1.0"
-description = "Add your description here"
+name = "ff-game-bot"
+version = "2.0.0"
+description = "Free Fire Game Bot with Flask Web Dashboard - Squad management, player waitlist, admin controls"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "flask",
+    "requests",
+    "pycryptodome",
+    "protobuf",
+    "PyJWT",
+]
+authors = [
+    {name = "ISMAILdz13", email = "ismailkarimwalid156765@gmail.com"}
+]
+license = {text = "MIT"}
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends._legacy:_Backend"

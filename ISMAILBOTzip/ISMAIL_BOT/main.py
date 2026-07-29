@@ -4673,7 +4673,7 @@ async def TcPChaT(ip, port, AutHToKen, key, iv, LoGinDaTaUncRypTinG, ready_event
 [FFFFFF]                   thank for support 
 [FF0000]╠══════════╣
 [FFD700]⚡ OWNER : [FFFFFF]FLASH FF    
-[FFD700]✨ কেউ GUILD BOT কিনতে চাইলে telegram এ message করবেন, telegram username @juli_dvrma ❤️  
+[FFD700]✨ কেউ GUILD BOT কিনতে চাইলে telegram এ message করবেন, telegram username @ISMAILdz13 ❤️  
 [FF0000]╚══════════╝
 [FFD700]✨ Developer —͟͞͞ </> APON GMAING ❄️  ⚡
 """

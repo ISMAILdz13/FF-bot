@@ -1,13 +1,13 @@
 {
-  "name": "tcp-ete",
+  "name": "ff-game-bot-tcp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Free Fire TCP Bot - Game automation server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "ISMAILdz13",
+  "license": "MIT",
   "type": "commonjs"
 }

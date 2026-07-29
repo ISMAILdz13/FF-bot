@@ -436,9 +436,8 @@ This project is provided as-is for personal and educational use only. You may mo
 
 ## 👤 Credits
 
-- **Original Developer**: AbdeeLkarim BesTo (@ISMAIL_FF)
-- **Collaborators**: DAJAL FF, C4 Team
-- **De-obfuscation & Modernization**: 2025 Improvements
+- **Developer**: ISMAILdz13 (@ISMAILdz13)
+- **Repository**: [github.com/ISMAILdz13/ff-game-bot](https://github.com/ISMAILdz13/ff-game-bot)
 
 ---
 

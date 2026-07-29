@@ -4,7 +4,7 @@
 # Purpose : Fetch profile & recent media (public + optional session-based)
 # Note    : THIS CODE MADE BY ISMAIL @ISMAIL_FF
 # Usage   : /api/insta/<username>?
-# License : Personal / internal use only — retain credit when sharing
+# License: MIT - ISMAILdz13
 # ------------------------------------------------------------
 
 from flask import Flask, jsonify, request
