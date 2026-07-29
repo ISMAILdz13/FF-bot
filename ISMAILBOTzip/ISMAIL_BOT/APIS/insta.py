@@ -1,8 +1,8 @@
 # ------------------------------------------------------------
-# Instagram Info API — (@ISMAIL_FF)
+# Instagram Info API — (@ISMAILdz13)
 # JOIN    : @SOURCE_SUTRA  FOR MORE SRC | API | BOT CODE | METHOD | 🛐
 # Purpose : Fetch profile & recent media (public + optional session-based)
-# Note    : THIS CODE MADE BY ISMAIL @ISMAIL_FF
+# Note    : Made by ISMAILdz13
 # Usage   : /api/insta/<username>?
 # License: MIT - ISMAILdz13
 # ------------------------------------------------------------

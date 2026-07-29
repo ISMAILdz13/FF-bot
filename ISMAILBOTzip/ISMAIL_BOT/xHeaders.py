@@ -146,7 +146,7 @@ def GeT_PLayer_InFo(uid , Token):
  Creating : {account_date}
  LasT LoGin : {last_login}
  
-  [90EE90]Dev : C4 Team OfficieL\n'''            
+  [90EE90]Dev : ISMAILdz13\n'''            
             	a = a.replace('[i]','')
             	return a
             	  	            	            
@@ -174,7 +174,7 @@ def GeT_PLayer_InFo(uid , Token):
  Leader s'Uid : {xMsGFixinG(clan_leader)}
  Leader s'Name : {clan_leader_name}
 
-  [90EE90]Dev : C4 Team OfficieL\n'''	
+  [90EE90]Dev : ISMAILdz13\n'''	
             	a = a.replace('[i]','')    
             	return a
                                        

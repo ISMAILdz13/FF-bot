@@ -1,4 +1,4 @@
-# By AbdeeLkarim BesTo
+# By ISMAILdz13
 
 import requests , json , binascii , time , urllib3 , base64 , datetime , re ,socket , threading , random , os , asyncio
 from protobuf_decoder.protobuf_decoder import Parser
@@ -538,7 +538,7 @@ async def ArohiRefuse(owner,uid, K,V):
     return await GeneRaTePk((await CrEaTe_ProTo(fields)).hex() , '0515' , K , V)
 # Isko file ke sabse neeche (Bottom) paste karein
 
-# By AbdeeLkarim BesTo
+# By ISMAILdz13
 
 import requests , json , binascii , time , urllib3 , base64 , datetime , re ,socket , threading , random , os , asyncio
 from protobuf_decoder.protobuf_decoder import Parser

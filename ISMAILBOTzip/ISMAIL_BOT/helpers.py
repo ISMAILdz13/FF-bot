@@ -279,7 +279,7 @@ async def get_player_info(uid, token=None):
  Leader Name : {clan_leader_name}
 '''
                 
-                output += "\n  [90EE90]Dev: C4 Team Official\n"
+                output += "\n  [90EE90]Dev: ISMAILdz13\n"
                 return output.replace('[i]', '')
                 
             except Exception as e:
