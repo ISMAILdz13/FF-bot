@@ -79,7 +79,7 @@ def GeT_Name(uid , Token):
         'X-GA': 'v1 1',
         'Authorization': f'Bearer {GeTToK()}',
         'Content-Length': '16',
-        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 11; ASUS_Z01QD Build/PI)',
         'Host': 'clientbp.ggblueshark.com',
         'Connection': 'Keep-Alive',
         'Accept-Encoding': 'gzip'
@@ -104,7 +104,7 @@ def GeT_PLayer_InFo(uid , Token):
         'X-GA': 'v1 1',
         'Authorization': f'Bearer {GeTToK()}',
         'Content-Length': '16',
-        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 11; ASUS_Z01QD Build/PI)',
         'Host': 'clientbp.ggblueshark.com',
         'Connection': 'Keep-Alive',
         'Accept-Encoding': 'gzip'}
@@ -193,7 +193,7 @@ def DeLet_Uid(id , Tok):
         'X-GA': 'v1 1',
         'Authorization': f'Bearer {Tok}',
         'Content-Length': '16',
-        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
+        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 11; ASUS_Z01QD Build/PI)',
         'Host': 'clientbp.ggblueshark.com',
         'Connection': 'Keep-Alive',
         'Accept-Encoding': 'gzip'}
