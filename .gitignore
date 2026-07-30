@@ -24,3 +24,4 @@ Thumbs.db
 # Binaries
 *.zip
 *.exe
+data/guests.json
