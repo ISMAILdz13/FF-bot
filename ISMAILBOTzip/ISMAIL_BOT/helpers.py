@@ -169,7 +169,7 @@ async def get_player_name(uid, token=None):
             'X-GA': 'v1 1',
             'Authorization': f'Bearer {token}',
             'Content-Length': '16',
-            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 7.1.2; ASUS_Z01QD Build/QKQ1.190825.002)',
+            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
             'Host': 'clientbp.ggblueshark.com',
             'Connection': 'Keep-Alive',
             'Accept-Encoding': 'gzip'
@@ -212,7 +212,7 @@ async def get_player_info(uid, token=None):
             'X-GA': 'v1 1',
             'Authorization': f'Bearer {token}',
             'Content-Length': '16',
-            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 7.1.2; ASUS_Z01QD Build/QKQ1.190825.002)',
+            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
             'Host': 'clientbp.ggblueshark.com',
             'Connection': 'Keep-Alive',
             'Accept-Encoding': 'gzip'
@@ -308,7 +308,7 @@ async def delete_friend(friend_id, token):
             'X-GA': 'v1 1',
             'Authorization': f'Bearer {token}',
             'Content-Length': '16',
-            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 7.1.2; ASUS_Z01QD Build/QKQ1.190825.002)',
+            'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 15; I2404 Build/AP3A.240905.015.A2_V000L1)',
             'Host': 'clientbp.ggblueshark.com',
             'Connection': 'Keep-Alive',
             'Accept-Encoding': 'gzip'
