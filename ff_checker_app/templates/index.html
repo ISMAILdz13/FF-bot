@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Guest File - FF Checker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 mb-3" style="background: linear-gradient(90deg, #00d9ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: bold;">
+                <i class="bi bi-file-earmark"></i> Upload Guest File
+            </h1>
+            <p class="lead text-muted">Upload your Free Fire guest account `.dat` file to extract and analyze account information</p>
+        </div>
+
+        <!-- Upload Card -->
+        <div class="card mb-4 neon-card" style="border: 2px solid #00d9ff; background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));">
+            <div class="card-body p-5">
+                <!-- File Upload Area -->
+                <div id="dropZone" class="upload-area" style="border: 3px dashed #7c3aed; border-radius: 15px; padding: 60px 20px; text-align: center; cursor: pointer; transition: all 0.3s; background: rgba(124, 58, 237, 0.05);">
+                    <i class="bi bi-cloud-arrow-up" style="font-size: 4rem; color: #00d9ff; margin-bottom: 20px; display: block;"></i>
+                    <h4 style="color: #00d9ff; margin-bottom: 10px;">Drag & Drop Your File</h4>
+                    <p class="text-muted mb-3">or click to browse</p>
+                    <input type="file" id="fileInput" accept=".dat" style="display: none;">
+                    <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('fileInput').click()" style="border-color: #7c3aed; color: #7c3aed;">
+                        <i class="bi bi-folder-open"></i> Select File
+                    </button>
+                    <p class="text-muted small mt-3 mb-0">Accepted: .dat files up to 10 MB</p>
+                </div>
+
+                <!-- File Info -->
+                <div id="fileInfo" style="display: none; margin-top: 30px; padding: 20px; background: rgba(6, 182, 212, 0.1); border-left: 4px solid #00d9ff; border-radius: 8px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0" id="fileName" style="color: #00d9ff;"></h6>
+                            <small id="fileSize" class="text-muted"></small>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="resetUpload()">
+                            <i class="bi bi-x-circle"></i> Remove
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Upload Progress -->
+                <div id="progressContainer" style="display: none; margin-top: 30px;">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span style="color: #00d9ff;">Uploading...</span>
+                        <span id="progressPercent" style="color: #7c3aed;">0%</span>
+                    </div>
+                    <div class="progress" style="height: 8px; border-radius: 10px; background: rgba(124, 58, 237, 0.2);">
+                        <div id="progressBar" class="progress-bar" style="background: linear-gradient(90deg, #00d9ff, #7c3aed); width: 0%; border-radius: 10px;"></div>
+                    </div>
+                </div>
+
+                <!-- Upload Status Message -->
+                <div id="statusMessage" style="display: none; margin-top: 30px; padding: 15px; border-radius: 8px;" role="alert">
+                    <span id="statusText"></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div id="actionButtons" style="display: none; margin-top: 30px; text-align: center;">
+                    <button type="button" class="btn btn-lg" id="uploadBtn" style="background: linear-gradient(90deg, #00d9ff, #06b6d4); color: #0f172a; font-weight: bold; border: none;" onclick="uploadFile()">
+                        <i class="bi bi-upload"></i> Upload & Extract
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Section (shown after upload) -->
+        <div id="resultSection" style="display: none;">
+            <div class="alert alert-success" style="border: 2px solid #10b981; background: rgba(16, 185, 129, 0.1);" role="alert">
+                <h5 class="alert-heading" style="color: #10b981;">
+                    <i class="bi bi-check-circle"></i> Success!
+                </h5>
+                <p class="mb-2">Your guest UID has been extracted:</p>
+                <div class="input-group mb-3" style="margin-top: 15px;">
+                    <input type="text" id="extractedUID" class="form-control" readonly style="background: #1e293b; color: #00d9ff; border-color: #7c3aed;">
+                    <button class="btn btn-outline-success" type="button" onclick="copyToClipboard()">
+                        <i class="bi bi-clipboard"></i> Copy
+                    </button>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/dashboard" class="btn btn-lg" style="background: linear-gradient(90deg, #7c3aed, #8b5cf6); color: white; font-weight: bold; border: none;">
+                        <i class="bi bi-speedometer2"></i> View Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-3">
+                <div class="text-center">
+                    <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: rgba(0, 217, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-shield-check" style="font-size: 2rem; color: #00d9ff;"></i>
+                    </div>
+                    <h5 style="color: #00d9ff;">Secure</h5>
+                    <p class="text-muted small">Files processed in memory, never stored</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="text-center">
+                    <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: rgba(124, 58, 237, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-lightning-charge" style="font-size: 2rem; color: #7c3aed;"></i>
+                    </div>
+                    <h5 style="color: #7c3aed;">Fast</h5>
+                    <p class="text-muted small">Instant UID extraction and lookup</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="text-center">
+                    <div style="width: 60px; height: 60px; margin: 0 auto 15px; background: rgba(6, 182, 212, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-graph-up" style="font-size: 2rem; color: #06b6d4;"></i>
+                    </div>
+                    <h5 style="color: #06b6d4;">Detailed</h5>
+                    <p class="text-muted small">Complete account information</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Drop zone event listeners
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+// Drag and drop events
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#00d9ff';
+    dropZone.style.background = 'rgba(0, 217, 255, 0.1)';
+});
+
+dropZone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#7c3aed';
+    dropZone.style.background = 'rgba(124, 58, 237, 0.05)';
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#7c3aed';
+    dropZone.style.background = 'rgba(124, 58, 237, 0.05)';
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        fileInput.files = files;
+        handleFileSelect();
+    }
+});
+
+fileInput.addEventListener('change', handleFileSelect);
+
+function handleFileSelect() {
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    // Validate file type
+    if (!file.name.endsWith('.dat')) {
+        showError('Invalid file type. Please select a .dat file.');
+        return;
+    }
+    
+    // Validate file size (10 MB)
+    if (file.size > 10 * 1024 * 1024) {
+        showError('File is too large. Maximum size is 10 MB.');
+        return;
+    }
+    
+    // Show file info
+    document.getElementById('fileInfo').style.display = 'block';
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(2)} KB`;
+    document.getElementById('actionButtons').style.display = 'block';
+    document.getElementById('statusMessage').style.display = 'none';
+}
+
+function resetUpload() {
+    fileInput.value = '';
+    document.getElementById('fileInfo').style.display = 'none';
+    document.getElementById('actionButtons').style.display = 'none';
+    document.getElementById('progressContainer').style.display = 'none';
+    document.getElementById('statusMessage').style.display = 'none';
+}
+
+function uploadFile() {
+    const file = fileInput.files[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    document.getElementById('actionButtons').style.display = 'none';
+    document.getElementById('progressContainer').style.display = 'block';
+    document.getElementById('statusMessage').style.display = 'none';
+    
+    fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('progressContainer').style.display = 'none';
+        
+        if (data.success) {
+            document.getElementById('extractedUID').value = data.guest_uid;
+            document.getElementById('resultSection').style.display = 'block';
+            showSuccess('Guest UID extracted successfully!');
+        } else {
+            showError(data.error || 'Failed to extract guest UID');
+        }
+    })
+    .catch(error => {
+        document.getElementById('progressContainer').style.display = 'none';
+        showError('Upload failed: ' + error.message);
+    });
+}
+
+function showSuccess(message) {
+    const statusMsg = document.getElementById('statusMessage');
+    statusMsg.className = 'alert alert-success';
+    statusMsg.style.border = '2px solid #10b981';
+    statusMsg.style.background = 'rgba(16, 185, 129, 0.1)';
+    statusMsg.innerHTML = `<i class="bi bi-check-circle"></i> ${message}`;
+    statusMsg.style.display = 'block';
+}
+
+function showError(message) {
+    const statusMsg = document.getElementById('statusMessage');
+    statusMsg.className = 'alert alert-danger';
+    statusMsg.style.border = '2px solid #ef4444';
+    statusMsg.style.background = 'rgba(239, 68, 68, 0.1)';
+    statusMsg.innerHTML = `<i class="bi bi-exclamation-triangle"></i> ${message}`;
+    statusMsg.style.display = 'block';
+}
+
+function copyToClipboard() {
+    const uid = document.getElementById('extractedUID').value;
+    navigator.clipboard.writeText(uid).then(() => {
+        alert('Guest UID copied to clipboard!');
+    });
+}
+</script>
+{% endblock %}
